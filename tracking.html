@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Tracking Pengiriman - SITTA UT</title>
+</head>
+
+<body class="tracking-page">
+
+ <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+
+            <!-- Logo -->
+            <a class="navbar-brand" href="dashboard.html">
+                <img
+                    src="img/logo.png"
+                    alt="Logo SITTA UT"
+                    class="navbar-logo">
+            </a>
+
+            <!-- Tombol Mobile -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navmenu"
+                aria-controls="navmenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu -->
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">Beranda</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="stock.html" class="nav-link">Informasi Bahan Ajar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="tracking.html" class="nav-link">Tracking Pengiriman</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Laporan</a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">Monitoring Progres DO Bahan Ajar</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Rekap Bahan Ajar</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Histori Transaksi Bahan Ajar</a>
+                    </li>
+
+                    <!-- Logout -->
+                    <li class="nav-item logout-container">
+                        <button
+                            type="button"
+                            id="logoutBtn"
+                            class="btn btn-logout">
+                            <i class="bi bi-box-arrow-right"></i>Logout
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+<!-- TRACKING -->
+
+    <main class="tracking-container">
+
+        <h2>Tracking Pengiriman</h2>
+
+        <!-- Form pencarian -->
+        <form id="trackingForm">
+
+            <input
+                type="text"
+                id="inputDO"
+                placeholder="Masukkan Nomor DO"
+                autocomplete="off">
+
+            <button
+                type="button"
+                id="findBtn">
+                <i class="bi bi-search"></i>Cari
+            </button>
+
+        </form>
+
+
+        <!-- Hasil tracking -->
+        <div id="trackingResult" class="tracking-result">
+
+            <div class="tracking-card">
+
+                <!-- Header -->
+                <div class="tracking-header">
+                    <div class="tracking-title">
+                        <div class="tracking-title-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                        <h3>Detail Pengiriman</h3>
+                    </div>
+
+                    <span
+                        class="tracking-status"
+                        id="trackingStatus">
+                        -
+                    </span>
+                </div>
+
+                <!-- Informasi -->
+                <div class="tracking-info">
+
+                    <!-- Nomor DO -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Nomor DO</span>
+                            <strong id="nomorDO">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Nama -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Nama</span>
+                            <strong id="nama">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Ekspedisi -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Ekspedisi</span>
+                            <strong id="ekspedisi">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Tanggal Kirim -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Tanggal Kirim</span>
+                            <strong id="tanggalKirim">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Paket -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Paket</span>
+                            <strong id="paket">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Total -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Total</span>
+                            <strong id="total">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- TIMELINE -->
+
+                <div class="timeline-section">
+
+                    <div class="timeline-title">
+
+                        <div class="timeline-title-icon">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+
+                        <h4>Riwayat Perjalanan</h4>
+
+                    </div>
+
+                    <!-- Timeline diisi di JS -->
+                    <div
+                        class="timeline"
+                        id="timeline">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Bootstrap JS (Tombol burger navbar) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Data -->
+    <script src="js/data.js"></script>
+
+    <!-- JavaScript utama -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

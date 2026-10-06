@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Login-SITTA UT</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body class="login-page">
+
+    <div class="login-container">
+
+        <div class="logo-container">
+        <img src="img/logo.png" alt="Logo UT">
+        </div>
+
+        <h2>Selamat Datang</h2>
+        <p>Silahkan masuk ke akun Anda</p>
+
+        <form id="loginForm">
+
+            <!-- Insert email -->
+            <div class="input-box">
+                <span class="icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </span>
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email</label>
+            </div>
+
+            <!-- insert password dan fitur show hide  -->
+            <div class="input-box">
+                <span class="icon">
+                    <i class="fa-solid fa-key"></i>
+                </span>
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+                <span class="eye-icon" onclick="showHide()">
+                    <i class="fa-solid fa-eye"></i>
+                </span>
+            </div>
+
+            <!-- Lupa password dan belum punya akun -->
+            <div class="form-options">
+                <a href="#" id="forgetLink">Lupa password?</a>
+            </div>
+
+            <input
+                type="submit"
+                value="Masuk"
+                class="tombol-login">
+        </form>
+
+        <div class="links">
+            <span>Belum punya akun?</span>
+            <a href="#" id="registerLink">Daftar</a>
+        </div>
+
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
