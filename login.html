@@ -1,94 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Pengaturan karakter dan tampilan responsif -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Memuat font Inter dari Google Fonts -->
+    <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Menentukan judul halaman pada tab browser -->
     <title>Login-SITTA UT</title>
 
-    <!-- Memuat file CSS untuk mengatur tampilan halaman login -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Memuat Font Awesome untuk menampilkan ikon -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- Memuat SweetAlert2 untuk menampilkan notifikasi pop-up -->
+    
+    <!-- Sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="login-page">
 
-    <!-- LOGIN CONTAINER: Pembungkus seluruh elemen halaman login -->
     <div class="login-container">
 
-        <!-- Logo Universitas Terbuka -->
         <div class="logo-container">
-            <img src="img/logo.png" alt="Logo UT">
+        <img src="img/logo.png" alt="Logo UT">
         </div>
 
-        <!-- Judul dan deskripsi halaman login -->
         <h2>Selamat Datang</h2>
         <p>Silahkan masuk ke akun Anda</p>
 
-        <!-- FORM LOGIN: Formulir untuk memasukkan email dan password -->
         <form id="loginForm">
 
-            <!-- INPUT EMAIL: Kolom untuk memasukkan alamat email -->
+            <!-- Insert email -->
             <div class="input-box">
-
-                <!-- Ikon email dari Font Awesome -->
                 <span class="icon">
                     <i class="fa-solid fa-envelope"></i>
                 </span>
-
-                <!-- Input email dengan validasi format email dari browser -->
                 <input type="email" id="email" placeholder=" " required>
-
-                <!-- Label untuk kolom email -->
                 <label for="email">Email</label>
             </div>
 
-            <!-- INPUT PASSWORD: Kolom kata sandi dengan fitur tampil dan sembunyikan -->
+            <!-- insert password dan fitur show hide  -->
             <div class="input-box">
-
-                <!-- Ikon kunci dari Font Awesome -->
                 <span class="icon">
                     <i class="fa-solid fa-key"></i>
                 </span>
-
-                <!-- Input password yang wajib diisi -->
                 <input type="password" id="password" placeholder=" " required>
-
-                <!-- Label untuk kolom password -->
                 <label for="password">Password</label>
-
-                <!-- Ikon mata untuk menjalankan fungsi showHide() -->
                 <span class="eye-icon" onclick="showHide()">
                     <i class="fa-solid fa-eye"></i>
                 </span>
             </div>
 
-            <!-- OPSI LOGIN: Tautan untuk mengakses fitur lupa password -->
+            <!-- Lupa password dan belum punya akun -->
             <div class="form-options">
                 <a href="#" id="forgetLink">Lupa password?</a>
             </div>
 
-            <!-- Tombol untuk mengirim formulir login -->
             <input
                 type="submit"
                 value="Masuk"
                 class="tombol-login">
         </form>
 
-        <!-- BAGIAN REGISTRASI: Tautan untuk pengguna yang belum memiliki akun -->
         <div class="links">
             <span>Belum punya akun?</span>
             <a href="#" id="registerLink">Daftar</a>
@@ -96,12 +74,8 @@
 
     </div>
 
-    <!-- Memuat data awal yang digunakan oleh aplikasi -->
     <script src="js/data.js"></script>
-
-    <!-- Memuat JavaScript untuk menangani login dan interaksi halaman -->
     <script src="js/script.js"></script>
 
 </body>
-
 </html>

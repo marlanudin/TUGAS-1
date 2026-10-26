@@ -1,43 +1,38 @@
 // LOGIN PAGE
 
-// Mengambil elemen formulir login dari halaman
 const loginForm = document.getElementById('loginForm');
-
 if (loginForm) {
-    // Menjalankan proses login ketika formulir dikirim
     loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
-        // Mengambil email dan password dari input
         const email =
             document.getElementById('email').value.trim();
-
         const password =
             document.getElementById('password').value.trim();
 
-        // Mencari pengguna yang sesuai dengan email dan password
+        // Cari user dari dataPengguna
+
         const user = dataPengguna.find(
             (u) =>
                 u.email === email &&
                 u.password === password
         );
 
-        // Memproses login jika data pengguna cocok
+        // Jika Login Berhasil
+
         if (user) {
 
-            // Menyimpan nama pengguna ke localStorage
+            // Simpan nama user
             localStorage.setItem(
                 'namaUser',
                 user.nama
             );
 
-            // Menyimpan status login ke localStorage
+            // Simpan status login
             localStorage.setItem(
                 'isLogin',
                 'true'
             );
 
-            // Menampilkan notifikasi login berhasil
             Swal.fire({
                 title: 'Login Berhasil!',
                 text:
@@ -56,15 +51,14 @@ if (loginForm) {
 
             }).then(() => {
 
-                // Mengarahkan pengguna ke halaman dashboard
                 window.location.href =
                     'dashboard.html';
             });
         }
 
-        // Memproses login jika data pengguna tidak cocok
+        // Jika Login Gagal
+
         else {
-            // Menampilkan notifikasi login gagal
             Swal.fire({
                 title: 'Login Gagal!',
                 text:
@@ -83,29 +77,26 @@ if (loginForm) {
     });
 }
 
-// FITUR TAMPIL DAN SEMBUNYIKAN PASSWORD
+// Fitur tampil dan Sembunyikan Password
 
-// Mengubah tipe input password agar teks dapat ditampilkan atau disembunyikan
 function showHide() {
     const input =
         document.getElementById("password");
-
     const icon =
         document.querySelector(".eye-icon i");
 
-    // Menghentikan fungsi jika elemen tidak ditemukan
+    // Jika elemen tidak ada,
+    // jangan jalankan fungsi
     if (!input || !icon) {
         return;
     }
 
-    // Menampilkan password jika sebelumnya tersembunyi
     if (input.type === "password") {
         input.type = "text";
         icon.classList.remove("fa-eye");
         icon.classList.add("fa-eye-slash");
     }
 
-    // Menyembunyikan password jika sebelumnya terlihat
     else {
         input.type = "password";
         icon.classList.remove("fa-eye-slash");
@@ -113,20 +104,16 @@ function showHide() {
     }
 }
 
-// FITUR LUPA PASSWORD
+// Fitur Lupa Password
 
-// Mengambil elemen tautan lupa password
 const forgetLink =
     document.getElementById('forgetLink');
-
 if (forgetLink) {
-    // Menampilkan informasi ketika tautan diklik
     forgetLink.addEventListener(
         'click',
         function (e) {
             e.preventDefault();
 
-            // Menampilkan petunjuk untuk menghubungi admin UT
             Swal.fire({
                 title: 'Lupa Password?',
                 text:
@@ -135,7 +122,6 @@ if (forgetLink) {
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#f5d216',
 
-                // Mengatur kelas CSS khusus popup
                 customClass: {
                     popup: 'custom-popup',
                     title: 'custom-popup-title',
@@ -147,20 +133,16 @@ if (forgetLink) {
     );
 }
 
-// FITUR DAFTAR AKUN
+// Fitur Daftar Akun
 
-// Mengambil elemen tautan pendaftaran akun
 const registerLink =
     document.getElementById('registerLink');
-
 if (registerLink) {
-    // Menampilkan informasi ketika tautan pendaftaran diklik
     registerLink.addEventListener(
         'click',
         function (e) {
             e.preventDefault();
 
-            // Menampilkan petunjuk untuk menghubungi admin UT
             Swal.fire({
                 title: 'Belum Punya Akun?',
                 text:
@@ -168,8 +150,6 @@ if (registerLink) {
                 icon: 'info',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#f5d216',
-
-                // Mengatur kelas CSS khusus popup
                 customClass: {
                     popup: 'custom-popup',
                     title: 'custom-popup-title',
@@ -181,42 +161,39 @@ if (registerLink) {
     );
 }
 
+
 // DASHBOARD PAGE
 
-// FITUR NAVBAR
+// Navbar
 
-// Menangani klik pada area halaman untuk menutup menu navbar mobile
 document.addEventListener(
     "click",
     function (event) {
         const navbar =
             document.querySelector(".navbar");
-
         const navmenu =
             document.getElementById("navmenu");
-
         const toggler =
             document.querySelector(".navbar-toggler");
 
-        // Menghentikan fungsi jika navbar atau menu tidak ditemukan
+        // Jika navbar/navmenu tidak ada,
+        // hentikan fungsi.
         if (!navbar || !navmenu) {
             return;
         }
 
-        // Menutup navbar jika pengguna mengeklik area di luar navbar
+        // Fitur Klik di luar navbar
+
         if (
             navmenu.classList.contains("show") &&
             !navbar.contains(event.target)
         ) {
-            // Memeriksa ketersediaan komponen Collapse Bootstrap
             if (
                 typeof bootstrap !== "undefined" &&
                 bootstrap.Collapse
             ) {
                 const bsCollapse =
                     bootstrap.Collapse.getInstance(navmenu);
-
-                // Menutup menu jika instance Collapse tersedia
                 if (bsCollapse) {
                     bsCollapse.hide();
                 }
@@ -225,15 +202,13 @@ document.addEventListener(
     }
 );
 
-// FITUR MENUTUP NAVBAR SAAT DROPDOWN DIKLIK
+// Fitur tutup saat dropdown diklik
 
-// Mengambil seluruh item dropdown pada navbar
 const dropdownItems =
     document.querySelectorAll(
         "#navmenu .dropdown-item"
     );
 
-// Menambahkan event klik pada setiap item dropdown
 dropdownItems.forEach(function (item) {
     item.addEventListener(
         "click",
@@ -241,12 +216,10 @@ dropdownItems.forEach(function (item) {
             const navmenu =
                 document.getElementById("navmenu");
 
-            // Menghentikan fungsi jika menu navbar tidak ditemukan
             if (!navmenu) {
                 return;
             }
 
-            // Memeriksa ketersediaan komponen Collapse Bootstrap
             if (
                 typeof bootstrap !== "undefined" &&
                 bootstrap.Collapse
@@ -254,7 +227,6 @@ dropdownItems.forEach(function (item) {
                 const bsCollapse =
                     bootstrap.Collapse.getInstance(navmenu);
 
-                // Menutup navbar jika instance Collapse tersedia
                 if (bsCollapse) {
                     bsCollapse.hide();
                 }
@@ -263,19 +235,16 @@ dropdownItems.forEach(function (item) {
     );
 });
 
-// FITUR LOGOUT
+// Tombol Logout
 
-// Mengambil elemen tombol logout
 const logoutBtn =
     document.getElementById('logoutBtn');
 
 if (logoutBtn) {
-    // Menjalankan proses konfirmasi ketika tombol logout diklik
     logoutBtn.addEventListener(
         'click',
         function () {
 
-            // Menampilkan konfirmasi sebelum keluar dari akun
             Swal.fire({
                 title: 'Logout?',
                 text:
@@ -284,8 +253,6 @@ if (logoutBtn) {
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Logout',
                 cancelButtonText: 'Batal',
-
-                // Mengatur kelas CSS khusus popup logout
                 customClass: {
                     popup: 'logout-popup',
                     title: 'logout-title',
@@ -297,21 +264,18 @@ if (logoutBtn) {
                 buttonsStyling: false
 
             }).then((result) => {
-
-                // Menjalankan logout jika pengguna mengonfirmasi
                 if (result.isConfirmed) {
 
-                    // Menghapus nama pengguna dari localStorage
+                    // Hapus data login
                     localStorage.removeItem(
                         'namaUser'
                     );
 
-                    // Menghapus status login dari localStorage
                     localStorage.removeItem(
                         'isLogin'
                     );
 
-                    // Mengarahkan pengguna kembali ke halaman login
+                    // Kembali ke login
                     window.location.href =
                         'login.html';
                 }
@@ -320,94 +284,369 @@ if (logoutBtn) {
     );
 }
 
-// FITUR GREETING
+// Fitur Greeting
 
-// Mengambil elemen sapaan pada halaman dashboard
 const greeting = document.getElementById("greeting");
-
 if (greeting) {
 
-    // Mengambil nama pengguna yang tersimpan
     const namaUser = localStorage.getItem("namaUser");
-
-    // Mengambil jam saat ini berdasarkan waktu perangkat
     const hour = new Date().getHours();
-
-    // Menentukan variabel untuk sapaan berdasarkan waktu
     let timeOfDay;
-
-    // Menentukan sapaan untuk pagi hari
     if (hour < 11) {
         timeOfDay = "Selamat Pagi";
     }
-
-    // Menentukan sapaan untuk siang hari
     else if (hour < 15) {
         timeOfDay = "Selamat Siang";
     }
-
-    // Menentukan sapaan untuk sore hari
     else if (hour < 19) {
         timeOfDay = "Selamat Sore";
     }
-
-    // Menentukan sapaan untuk malam hari
     else {
         timeOfDay = "Selamat Malam";
     }
 
-    // Menampilkan sapaan sesuai waktu
+    // Tampilkan waktu
     document.getElementById("timeOfDay").textContent = timeOfDay;
 
-    // Menampilkan nama pengguna jika tersedia
+    // Tampilkan nama jika tersedia
     if (namaUser) {
         document.getElementById("namaUser").textContent = `${namaUser}!`;
     } else {
-        // Mengosongkan bagian nama jika data tidak tersedia
         document.getElementById("namaUser").textContent = "";
     }
 }
 
-// FITUR NAVBAR BERUBAH WARNA SAAT MENU AKTIF
 
-// Menjalankan kode setelah struktur HTML selesai dimuat
+// TRACKING PAGE
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const findBtn = document.getElementById("findBtn");
+    const inputDO = document.getElementById("inputDO");
+    const resultContainer = document.getElementById("trackingResult");
+
+    // Elemen data
+    const trackingStatus = document.getElementById("trackingStatus");
+    const nomorDO = document.getElementById("nomorDO");
+    const nama = document.getElementById("nama");
+    const ekspedisi = document.getElementById("ekspedisi");
+    const tanggalKirim = document.getElementById("tanggalKirim");
+    const paket = document.getElementById("paket");
+    const total = document.getElementById("total");
+    const timeline = document.getElementById("timeline");
+
+    // Hanya jalankan di tracking.html
+    if (!findBtn || !inputDO || !resultContainer) {
+        return;
+    }
+
+    // Sembunyikan hasil saat awal
+    resultContainer.style.display = "none";
+
+    // Tombol cari
+    findBtn.addEventListener("click", function () {
+
+        const doNumber = inputDO.value.trim();
+
+        // Jika nomor DO kosong
+        if (!doNumber) {
+
+            resultContainer.style.display = "none";
+
+            Swal.fire({
+                title: "Nomor DO Kosong",
+                text: "Masukkan Nomor DO terlebih dahulu",
+                icon: "warning",
+                confirmButtonText: "OK",
+
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                    confirmButton: "custom-swal-button"
+                },
+
+                buttonsStyling: false
+            });
+
+            return;
+        }
+
+        // Cari Data
+        const data = dataTracking[doNumber];
+
+        // Jika data tidak ditemukan
+        if (!data) {
+
+            resultContainer.style.display = "none";
+
+            Swal.fire({
+                title: "Data Tidak Ditemukan",
+                text: `Nomor DO ${doNumber} tidak tersedia dalam sistem`,
+                icon: "error",
+                confirmButtonText: "OK",
+
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                    confirmButton: "custom-swal-button"
+                },
+
+                buttonsStyling: false
+            });
+
+            return;
+        }
+
+        // Tampilkan hasil
+        resultContainer.style.display = "block";
+
+        // Masukan data
+        trackingStatus.textContent = data.status;
+        nomorDO.textContent = data.nomorDO;
+        nama.textContent = data.nama;
+        ekspedisi.textContent = data.ekspedisi;
+        tanggalKirim.textContent = data.tanggalKirim;
+        paket.textContent = data.paket;
+        total.textContent = data.total;
+
+        // Buat timeline
+        timeline.innerHTML = "";
+        data.perjalanan.forEach(function (item, index) {
+
+            const isLast =
+                index === data.perjalanan.length - 1;
+
+            const timelineItem = document.createElement("div");
+            timelineItem.className = `timeline-item ${isLast ? "active" : ""}`;
+
+            timelineItem.innerHTML = `
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">
+                        <i class="bi bi-calendar3"></i>
+                        ${item.waktu}
+                    </div>
+                    <div class="timeline-description">
+                        ${item.keterangan}
+                </div>
+                </div>
+            `;
+
+            timeline.appendChild(timelineItem);
+        });
+    });
+});
+
+
+// STOCK PAGE
+
+const stokTableBody = document.getElementById("stokTableBody");
+const formTambah = document.getElementById("formTambah");
+
+if (stokTableBody && formTambah) {
+
+    // Tampilkan Data Stock
+    function tampilkanStok() {
+        stokTableBody.innerHTML = "";
+
+        dataBahanAjar.forEach(item => {
+            stokTableBody.innerHTML += `
+                <tr>
+                    <td>
+                        <img src="${item.cover}" alt="${item.namaBarang}">
+                    </td>
+                    <td>${item.kodeLokasi}</td>
+                    <td>${item.kodeBarang}</td>
+                    <td>${item.namaBarang}</td>
+                    <td>${item.jenisBarang}</td>
+                    <td>${item.edisi}</td>
+                    <td>${item.stok}</td>
+                </tr>
+            `;
+        });
+    }
+
+    // Tampilkan data saat halaman dibuka
+    tampilkanStok();
+
+// Form Tambah Stock
+    formTambah.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Ambil data dari form
+        const kodeLokasi =
+            document.getElementById("kodeLokasi").value.trim();
+
+        const kodeBahanAjar =
+            document.getElementById("kodeBahanAjar").value.trim();
+
+        const nama =
+            document.getElementById("nama").value.trim();
+
+        const jenis =
+            document.getElementById("jenis").value.trim();
+
+        const stok =
+            Number(document.getElementById("stok").value);
+
+        const edisi =
+            document.getElementById("edisi").value.trim();
+
+        const coverInput =
+            document.getElementById("cover");
+
+        const file =
+            coverInput.files[0];
+
+        // Cek input
+        if (!kodeLokasi || !kodeBahanAjar || !nama || !edisi || isNaN(stok)) {
+
+            Swal.fire({
+                title: "Data Belum Lengkap",
+                text: "Silakan lengkapi semua data terlebih dahulu",
+                icon: "warning",
+                confirmButtonText: "OK",
+
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                    confirmButton: "custom-swal-button"
+                },
+
+                buttonsStyling: false
+            });
+
+            return;
+        }
+
+        // Cek file cover
+        if (!file) {
+
+            Swal.fire({
+                title: "Sampul Belum Dipilih",
+                text: "Silakan pilih gambar sampul terlebih dahulu",
+                icon: "warning",
+                confirmButtonText: "OK",
+
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                    confirmButton: "custom-swal-button"
+                },
+
+                buttonsStyling: false
+            });
+
+            return;
+        }
+
+        // Cek format file
+        const formatValid = [
+            "image/jpeg",
+            "image/png"
+        ];
+
+        if (!formatValid.includes(file.type)) {
+
+            Swal.fire({
+                title: "Format Tidak Valid",
+                text: "Gambar sampul harus berupa JPG atau PNG",
+                icon: "error",
+                confirmButtonText: "OK",
+
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                    confirmButton: "custom-swal-button"
+                },
+
+                buttonsStyling: false
+            });
+
+            return;
+        }
+
+        // Baca gambar
+        const reader = new FileReader();
+        reader.onload = function (event) {
+
+            // Data baru
+            const dataBaru = {
+                cover: event.target.result,
+                kodeLokasi: kodeLokasi,
+                kodeBarang: kodeBahanAjar,
+                namaBarang: nama,
+                jenisBarang: jenis,
+                edisi: edisi,
+                stok: stok
+            };
+
+            // Tambahkan Data
+            dataBahanAjar.push(dataBaru);
+            
+            // Perbarui tabel
+            tampilkanStok();
+
+            // Reset form
+            formTambah.reset();
+
+            // Pop up Berhasil
+            Swal.fire({
+                title: "Berhasil!",
+                text: `${nama} berhasil ditambahkan ke data stok`,
+                icon: "success",
+                confirmButtonText: "OK",
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                    confirmButton: "custom-swal-button"
+                },
+                buttonsStyling: false
+            });
+        };
+        reader.readAsDataURL(file);
+    });
+
+}
+
+// FITUR NAVBAR UBAH WARNA SAAT MENU AKTIF
+
 document.addEventListener("DOMContentLoaded", function () {
     const navbar = document.querySelector(".navbar");
-
-    // Menghentikan fungsi jika navbar tidak ditemukan
     if (!navbar) {
         return;
     }
 
-    // Mengambil nama halaman yang sedang dibuka
+    // Ambil nama halaman sekarang
     const currentPage =
         window.location.pathname
             .split("/")
             .pop()
             .toLowerCase();
 
-    // Mengambil semua tautan navbar selain tombol dropdown
+    // Ambil semua menu navbar
     const navLinks = navbar.querySelectorAll(
         ".navbar-nav .nav-link:not(.dropdown-toggle)"
     );
 
-    // Memeriksa setiap tautan untuk menentukan halaman aktif
     navLinks.forEach(function (link) {
         const href = link.getAttribute("href");
-
-        // Melewati tautan kosong atau tautan #
         if (!href || href === "#") {
             return;
         }
 
-        // Mengambil nama halaman dari atribut href
         const linkPage =
             href
                 .split("/")
                 .pop()
                 .toLowerCase();
 
-        // Menambahkan kelas active jika halaman sesuai
         if (linkPage === currentPage) {
             link.classList.add("active");
         }
@@ -415,51 +654,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// FITUR TRANSISI SMOOTH SAAT PINDAH HALAMAN
 
-// Menjalankan kode setelah struktur HTML selesai dimuat
+// FITUR TRANSISI SMOOTH SAAT PINDAH PAGE
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Mengambil semua tautan navbar selain tombol dropdown
     const navLinks = document.querySelectorAll(
         ".navbar-nav .nav-link:not(.dropdown-toggle)"
     );
 
-    // Menambahkan efek transisi pada setiap tautan navbar
     navLinks.forEach(function (link) {
         link.addEventListener("click", function (event) {
             const href = link.getAttribute("href");
 
-            // Mengabaikan tautan kosong atau tautan #
+            // Abaikan link kosong atau #
             if (!href || href === "#") {
                 return;
             }
 
-            // Mengambil nama halaman yang sedang dibuka
+            // Abaikan jika link adalah halaman yang sedang dibuka
             const currentPage =
                 window.location.pathname.split("/").pop();
 
-            // Mengambil nama halaman tujuan
             const linkPage =
                 href.split("/").pop();
 
-            // Mengabaikan tautan menuju halaman yang sama
             if (currentPage === linkPage) {
                 return;
             }
 
-            // Mencegah perpindahan halaman secara langsung
+            // Hentikan perpindahan langsung
             event.preventDefault();
 
-            // Menambahkan kelas untuk menjalankan efek halaman keluar
+            // Efek keluar
             document.body.classList.add("page-exit");
 
-            // Mengarahkan pengguna setelah jeda animasi 300 milidetik
+            // Pindah setelah animasi selesai
             setTimeout(function () {
                 window.location.href = href;
             }, 300);
 
         });
+
     });
 
 });

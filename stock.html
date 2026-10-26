@@ -2,41 +2,43 @@
 <html lang="id">
 
 <head>
-    <!-- Pengaturan karakter dan tampilan responsif -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Memuat font Inter dari Google Fonts -->
+    <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Memuat CSS Bootstrap untuk tata letak dan komponen -->
+    <!-- Bootstrap -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
         crossorigin="anonymous">
 
-    <!-- Memuat Bootstrap Icons untuk menampilkan ikon -->
+    <!-- Bootstrap Icons -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Menentukan judul halaman pada tab browser -->
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Informasi Bahan Ajar-SITTA UT</title>
 
-    <!-- Memuat file CSS untuk mengatur tampilan halaman -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-</head>
 
+</head>
 <body class="stock-page">
 
-    <!-- NAVBAR: Navigasi utama aplikasi -->
+    <!-- NAVBAR -->
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
 
-            <!-- Logo SITTA UT yang mengarah ke halaman dashboard -->
+            <!-- Logo -->
             <a class="navbar-brand" href="dashboard.html">
                 <img
                     src="img/logo.png"
@@ -44,7 +46,7 @@
                     class="navbar-logo">
             </a>
 
-            <!-- Tombol untuk membuka navigasi pada perangkat mobile -->
+            <!-- Tombol Mobile -->
             <button
                 class="navbar-toggler"
                 type="button"
@@ -56,35 +58,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menu navigasi utama -->
+            <!-- Menu -->
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
 
-                    <!-- Menu untuk menuju halaman dashboard -->
                     <li class="nav-item">
                         <a href="dashboard.html" class="nav-link">Beranda</a>
                     </li>
 
-                    <!-- Menu untuk menuju halaman informasi stok bahan ajar -->
                     <li class="nav-item">
-                        <a href="stock.html" class="nav-link">Informasi Stok Bahan Ajar</a>
+                        <a href="stock.html" class="nav-link">Informasi Bahan Ajar</a>
                     </li>
 
-                    <!-- Menu untuk menuju halaman tracking delivery order -->
                     <li class="nav-item">
-                        <a href="tracking.html" class="nav-link">Tracking Delivery Order</a>
+                        <a href="tracking.html" class="nav-link">Tracking Pengiriman</a>
                     </li>
 
-                    <!-- Menu dropdown untuk mengakses halaman laporan -->
                     <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">Laporan</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Laporan</a>
 
-                        <!-- Daftar pilihan laporan -->
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" href="#">Monitoring Progres DO Bahan Ajar</a>
@@ -93,14 +85,14 @@
                                 <a class="dropdown-item" href="#">Rekap Bahan Ajar</a>
                             </li>
                         </ul>
+
                     </li>
 
-                    <!-- Menu untuk melihat histori transaksi bahan ajar -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">Histori Transaksi Bahan Ajar</a>
                     </li>
 
-                    <!-- Tombol untuk keluar dari aplikasi -->
+                    <!-- Logout -->
                     <li class="nav-item logout-container">
                         <button
                             type="button"
@@ -111,375 +103,126 @@
                     </li>
 
                 </ul>
+
             </div>
+
         </div>
+
     </nav>
 
-    <!-- INFORMASI STOK: Judul utama halaman -->
-    <h2 class="stock-title">Informasi Stok Bahan Ajar</h2>
+<!-- INFORMASI STOCK -->
 
-    <!-- Elemen target Vue untuk memuat data awal dari dataBahanAjar.js -->
-    <div id="app" style="display: none;"></div>
+<h2 class="stock-title">Informasi Stok Bahan Ajar</h2>
 
-    <!-- APLIKASI INFORMASI STOK: Bagian utama yang dikelola oleh Vue 2 -->
-    <main id="stock-app" class="vue-task">
+<main class="stock-container">
+    <div class="stock-table-wrapper">
+        <table class="stock-table">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Kode Lokasi</th>
+                    <th>Kode Bahan Ajar</th>
+                    <th>Nama Bahan Ajar</th>
+                    <th>Jenis</th>
+                    <th>Edisi</th>
+                    <th>Stok</th>
+                </tr>
+            </thead>
+            <tbody id="stokTableBody"></tbody>
+        </table>
+    </div>
 
-        <!-- BAGIAN FILTER: Menyaring dan mengurutkan data bahan ajar -->
-        <section class="vue-panel">
-            <h2 class="h5 mb-3">Filter</h2>
+    <!-- Tambah data stock -->
+    <div class="tambah-stok">
+        <h2>Tambah Stok Baru</h2>
+            <form id="formTambah">
 
-            <!-- Kumpulan pilihan filter dan pencarian -->
-            <div class="vue-grid">
-
-                <!-- Filter berdasarkan UT-Daerah -->
-                <div class="vue-field">
-                    <label for="filterUpbjj">UT-Daerah</label>
-                    <select id="filterUpbjj" v-model="filterUPBJJ">
-                        <option value="">Semua UT-Daerah</option>
-                        <option v-for="daerah in upbjjList" :key="daerah" :value="daerah">
-                            {{ daerah }}
-                        </option>
-                    </select>
-                </div>
-
-                <!-- Filter kategori yang ditampilkan ketika UT-Daerah dipilih -->
-                <div class="vue-field" v-show="filterUPBJJ !== ''">
-                    <label for="filterKategori">Kategori mata kuliah</label>
-                    <select id="filterKategori" v-model="filterKategori">
-                        <option value="">Semua kategori</option>
-                        <option v-for="kategori in kategoriTersedia" :key="kategori" :value="kategori">
-                            {{ kategori }}
-                        </option>
-                    </select>
-                </div>
-
-                <!-- Filter berdasarkan kondisi stok bahan ajar -->
-                <div class="vue-field">
-                    <label for="filterStok">Kondisi stok</label>
-                    <select id="filterStok" v-model="filterStok">
-                        <option value="semua">Semua stok</option>
-                        <option value="menipis">Menipis</option>
-                        <option value="kosong">Kosong</option>
-                        <option value="reorder">Perlu re-order</option>
-                    </select>
-                </div>
-
-                <!-- Kolom pencarian berdasarkan kode, judul, atau lokasi rak -->
-                <div class="vue-field">
-                    <label for="kataKunci">Cari kode/judul/rak</label>
+                <div class="form-group">
+                    <label for="kodeLokasi">Kode Lokasi</label>
                     <input
-                        id="kataKunci"
-                        v-model.trim="kataKunci"
-                        type="search"
-                        placeholder="Contoh: MSIM atau pemrograman">
+                        type="text"
+                        id="kodeLokasi"
+                        placeholder="Kode Lokasi"
+                        required>
                 </div>
 
-                <!-- Pilihan urutan data berdasarkan judul, stok, atau harga -->
-                <div class="vue-field">
-                    <label for="urutkan">Urutkan berdasarkan</label>
-                    <select id="urutkan" v-model="urutkan">
-                        <option value="judul-asc">Judul A–Z</option>
-                        <option value="stok-asc">Stok terendah</option>
-                        <option value="stok-desc">Stok tertinggi</option>
-                        <option value="harga-asc">Harga terendah</option>
-                        <option value="harga-desc">Harga tertinggi</option>
-                    </select>
+                <div class="form-group">
+                    <label for="kodeBahanAjar">Kode Bahan Ajar</label>
+                    <input
+                        type="text"
+                        id="kodeBahanAjar"
+                        placeholder="Kode Bahan Ajar"
+                        required>
                 </div>
 
-            </div>
-
-            <!-- Tombol reset filter dan informasi jumlah data -->
-            <div class="vue-actions">
-                <button class="vue-btn secondary" type="button" @click="resetFilter">
-                    Reset Filter
-                </button>
-
-                <!-- Menampilkan jumlah data hasil filter dibandingkan seluruh data -->
-                <span class="vue-note align-self-center">
-                    Menampilkan {{ bahanAjarTerfilter.length }} dari {{ daftarBahanAjar.length }} data.
-                </span>
-            </div>
-
-            <!-- Menampilkan pesan informasi atau kesalahan dari aplikasi -->
-            <div
-                v-if="pesan"
-                class="vue-alert"
-                :class="{'text-danger': jenisPesan === 'error'}"
-                role="status">
-                {{ pesan }}
-            </div>
-        </section>
-
-        <!-- BAGIAN DAFTAR STOK: Menampilkan data bahan ajar dalam tabel -->
-        <section class="vue-panel">
-            <h2 class="h5 mb-3">Daftar Stok Bahan Ajar</h2>
-
-            <!-- Pembungkus tabel agar mendukung tampilan responsif -->
-            <div class="vue-table-wrap">
-                <table class="vue-table">
-
-                    <!-- Kepala tabel yang berisi nama kolom -->
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Judul</th>
-                            <th>Kategori</th>
-                            <th>UT-Daerah</th>
-                            <th>Lokasi Rak</th>
-                            <th>Stok</th>
-                            <th>Stok Safety</th>
-                            <th>Harga</th>
-                            <th>Status</th>
-                            <th>Catatan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <!-- Isi tabel menampilkan data hasil filter menggunakan computed property -->
-                    <tbody>
-                        <tr v-for="item in bahanAjarTerfilter" :key="item.kode">
-
-                            <!-- Menampilkan kode bahan ajar -->
-                            <td><strong>{{ item.kode }}</strong></td>
-
-                            <!-- Menampilkan judul bahan ajar -->
-                            <td>{{ item.judul }}</td>
-
-                            <!-- Menampilkan kategori bahan ajar -->
-                            <td>{{ item.kategori }}</td>
-
-                            <!-- Menampilkan UT-Daerah -->
-                            <td>{{ item.upbjj }}</td>
-
-                            <!-- Menampilkan lokasi rak penyimpanan -->
-                            <td>{{ item.lokasiRak }}</td>
-
-                            <!-- Menampilkan jumlah stok yang tersedia -->
-                            <td>{{ item.qty }}</td>
-
-                            <!-- Menampilkan batas minimum stok -->
-                            <td>{{ item.safety }}</td>
-
-                            <!-- Menampilkan harga dalam format rupiah -->
-                            <td>{{ formatRupiah(item.harga) }}</td>
-
-                            <!-- Menampilkan status stok dan kelas CSS berdasarkan kondisi stok -->
-                            <td>
-                                <span class="vue-status" :class="kelasStatus(item)">
-                                    <span v-if="item.qty === 0"></span>
-                                    <span v-else-if="item.qty < item.safety"></span>
-                                    <span v-else></span>
-                                    {{ statusStok(item) }}
-                                </span>
-                            </td>
-
-                            <!-- Menampilkan catatan bahan ajar yang dapat berisi format HTML -->
-                            <td>
-                                <span v-html="item.catatanHTML"></span>
-                            </td>
-
-                            <!-- Tombol untuk mengedit data atau mengubah jumlah stok -->
-                            <td>
-                                <div class="d-flex flex-column gap-2">
-                                    <button
-                                        class="vue-btn"
-                                        type="button"
-                                        @click="mulaiEdit(item)">
-                                        Edit
-                                    </button>
-
-                                    <button
-                                        class="vue-btn secondary"
-                                        type="button"
-                                        @click="ubahStokCepat(item)">
-                                        Ubah Qty
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Menampilkan pesan jika tidak ada data yang sesuai dengan filter -->
-                        <tr v-if="bahanAjarTerfilter.length === 0">
-                            <td colspan="11" class="text-center py-4">
-                                Data tidak ditemukan.
-                            </td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </div>
-        </section>
-
-        <!-- BAGIAN FORM: Menambahkan bahan ajar baru atau mengedit data yang sudah ada -->
-        <section class="vue-panel">
-
-            <!-- Judul formulir berubah sesuai mode tambah atau edit -->
-            <h2 class="h5 mb-1">
-                {{ formEdit ? 'Edit bahan ajar' : 'Tambah Bahan Ajar Baru' }}
-            </h2>
-
-            <!-- Keterangan mengenai kolom formulir yang wajib diisi -->
-            <p class="vue-note">Semua kolom wajib diisi, kecuali catatan.</p>
-
-            <!-- Menampilkan daftar kesalahan hasil validasi formulir -->
-            <div v-if="errors.length" class="alert alert-danger">
-                <strong>Periksa isian berikut:</strong>
-                <ul class="mb-0">
-                    <li v-for="error in errors" :key="error">
-                        {{ error }}
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Formulir menjalankan metode tambahBahanAjar ketika dikirim tanpa memuat ulang halaman -->
-            <form @submit.prevent="tambahBahanAjar" novalidate>
-
-                <!-- Kumpulan field untuk memasukkan atau mengubah data bahan ajar -->
-                <div class="vue-grid">
-
-                    <!-- Input kode mata kuliah dengan batas maksimal 20 karakter -->
-                    <div class="vue-field">
-                        <label for="kode">Kode Mata Kuliah</label>
-                        <input
-                            id="kode"
-                            v-model.trim="form.kode"
-                            required
-                            maxlength="20"
-                            placeholder="Contoh: MSIM4401">
-                    </div>
-
-                    <!-- Input judul bahan ajar -->
-                    <div class="vue-field">
-                        <label for="judul">Judul Mata Kuliah</label>
-                        <input
-                            id="judul"
-                            v-model.trim="form.judul"
-                            required
-                            placeholder="Nama bahan ajar">
-                    </div>
-
-                    <!-- Pilihan kategori dari daftar kategori yang tersedia -->
-                    <div class="vue-field">
-                        <label for="kategori">Kategori</label>
-                        <select id="kategori" v-model="form.kategori" required>
-                            <option disabled value="">Pilih Kategori</option>
-                            <option v-for="kategori in kategoriList" :key="kategori" :value="kategori">
-                                {{ kategori }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Pilihan UT-Daerah dari daftar wilayah yang tersedia -->
-                    <div class="vue-field">
-                        <label for="upbjj">UT-Daerah</label>
-                        <select id="upbjj" v-model="form.upbjj" required>
-                            <option disabled value="">Pilih UT-Daerah</option>
-                            <option v-for="daerah in upbjjList" :key="daerah" :value="daerah">
-                                {{ daerah }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Input lokasi rak penyimpanan bahan ajar -->
-                    <div class="vue-field">
-                        <label for="lokasiRak">Lokasi Rak</label>
-                        <input
-                            id="lokasiRak"
-                            v-model.trim="form.lokasiRak"
-                            required
-                            placeholder="Contoh: R4-C2">
-                    </div>
-
-                    <!-- Input jumlah stok dengan nilai minimal nol dan bilangan bulat -->
-                    <div class="vue-field">
-                        <label for="qty">Jumlah Stok</label>
-                        <input
-                            id="qty"
-                            v-model.number="form.qty"
-                            type="number"
-                            min="0"
-                            step="1"
-                            required>
-                    </div>
-
-                    <!-- Input batas minimum stok dengan nilai minimal nol dan bilangan bulat -->
-                    <div class="vue-field">
-                        <label for="safety">Safety Stok</label>
-                        <input
-                            id="safety"
-                            v-model.number="form.safety"
-                            type="number"
-                            min="0"
-                            step="1"
-                            required>
-                    </div>
-
-                    <!-- Input harga bahan ajar dalam rupiah -->
-                    <div class="vue-field">
-                        <label for="harga">Harga (Rp)</label>
-                        <input
-                            id="harga"
-                            v-model.number="form.harga"
-                            type="number"
-                            min="0"
-                            step="1000"
-                            required>
-                    </div>
-
-                    <!-- Input catatan tambahan yang bersifat opsional -->
-                    <div class="vue-field">
-                        <label for="catatanHTML">Catatan</label>
-                        <textarea
-                            id="catatanHTML"
-                            v-model.trim="form.catatanHTML"
-                            placeholder="Catatan tambahan"></textarea>
-                    </div>
-
+                <div class="form-group">
+                    <label for="nama">Nama Bahan Ajar</label>
+                    <input
+                        type="text"
+                        id="nama"
+                        placeholder="Nama Bahan Ajar"
+                        required>
                 </div>
 
-                <!-- Tombol untuk menyimpan data, membersihkan formulir, atau menampilkan status edit -->
-                <div class="vue-actions">
-
-                    <!-- Teks tombol berubah sesuai mode tambah atau edit -->
-                    <button class="vue-btn" type="submit">
-                        {{ formEdit ? 'Simpan Perubahan' : 'Tambah Data' }}
-                    </button>
-
-                    <!-- Tombol untuk membersihkan formulir -->
-                    <button
-                        class="vue-btn secondary"
-                        type="button"
-                        @click="bersihkanForm">
-                        Bersihkan Form
-                    </button>
-
-                    <!-- Menampilkan kode bahan ajar yang sedang diedit -->
-                    <span v-if="formEdit" class="vue-note align-self-center">
-                        Sedang mengedit {{ formEdit.kode }}.
-                    </span>
-
+                <div class="form-group">
+                    <label for="jenis">Jenis</label>
+                    <input
+                        type="text"
+                        id="jenis"
+                        placeholder="Jenis"
+                        required>
                 </div>
+
+                <div class="form-group">
+                    <label for="stok">Jumlah Stok</label>
+                    <input
+                        type="number"
+                        id="stok"
+                        placeholder="Jumlah"
+                        min="0"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edisi">Edisi</label>
+                    <input
+                        type="text"
+                        id="edisi"
+                        placeholder="Edisi"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cover">Cover</label>
+                    <input
+                        type="file"
+                        id="cover"
+                        accept=".jpg,.jpeg,.png"
+                        required>
+                </div>
+
+                <button type="submit" class="find-button">Tambah</button>
+
             </form>
-        </section>
+        </div>
+    </div>
 
-    </main>
+</main>
 
-    <!-- Memuat JavaScript Bootstrap untuk navbar dan dropdown -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous">
+    </script>
 
-    <!-- Memuat SweetAlert2 untuk menampilkan notifikasi pop-up -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous">
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Memuat Vue 2 untuk menjalankan fitur reaktif dan direktif Vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-
-    <!-- Memuat data awal bahan ajar -->
-    <script src="js/dataBahanAjar.js"></script>
-
-    <!-- Memuat logika aplikasi informasi stok berbasis Vue 2 -->
-    <script src="js/stock-app.js"></script>
-
-    <!-- Memuat script umum untuk logout dan fitur lainnya -->
+    <script src="js/data.js"></script>
     <script src="js/script.js"></script>
 
 </body>

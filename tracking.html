@@ -2,74 +2,81 @@
 <html lang="id">
 
 <head>
-    <!-- Pengaturan karakter dan tampilan responsif -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Memuat font Inter dari Google Fonts -->
+    <!-- Font Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Memuat CSS Bootstrap untuk tata letak dan komponen -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
 
-    <!-- Memuat Bootstrap Icons untuk menampilkan ikon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Memuat SweetAlert2 untuk menampilkan notifikasi pop-up -->
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Memuat file CSS untuk mengatur tampilan halaman -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Menentukan judul halaman pada tab browser -->
     <title>Tracking Pengiriman - SITTA UT</title>
 </head>
 
 <body class="tracking-page">
 
-    <!-- NAVBAR: Navigasi utama untuk berpindah halaman -->
+ <!-- NAVBAR -->
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
 
-            <!-- Logo SITTA UT yang mengarah ke halaman dashboard -->
+            <!-- Logo -->
             <a class="navbar-brand" href="dashboard.html">
-                <img src="img/logo.png" alt="Logo SITTA UT" class="navbar-logo">
+                <img
+                    src="img/logo.png"
+                    alt="Logo SITTA UT"
+                    class="navbar-logo">
             </a>
 
-            <!-- Tombol untuk membuka navigasi pada perangkat mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
-                aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Tombol Mobile -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navmenu"
+                aria-controls="navmenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Daftar menu navigasi -->
+            <!-- Menu -->
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
 
-                    <!-- Menu untuk menuju halaman dashboard -->
                     <li class="nav-item">
                         <a href="dashboard.html" class="nav-link">Beranda</a>
                     </li>
 
-                    <!-- Menu untuk menuju halaman informasi stok bahan ajar -->
                     <li class="nav-item">
-                        <a href="stock.html" class="nav-link">Informasi Stok Bahan Ajar</a>
+                        <a href="stock.html" class="nav-link">Informasi Bahan Ajar</a>
                     </li>
 
-                    <!-- Menu untuk menuju halaman tracking delivery order -->
                     <li class="nav-item">
-                        <a href="tracking.html" class="nav-link">Tracking Delivery Order</a>
+                        <a href="tracking.html" class="nav-link">Tracking Pengiriman</a>
                     </li>
 
-                    <!-- Menu dropdown untuk mengakses halaman laporan -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">Laporan</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Laporan</a>
 
-                        <!-- Daftar pilihan laporan -->
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" href="#">Monitoring Progres DO Bahan Ajar</a>
@@ -78,189 +85,213 @@
                                 <a class="dropdown-item" href="#">Rekap Bahan Ajar</a>
                             </li>
                         </ul>
+
                     </li>
 
-                    <!-- Menu untuk melihat histori transaksi bahan ajar -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">Histori Transaksi Bahan Ajar</a>
                     </li>
 
-                    <!-- Tombol untuk keluar dari aplikasi -->
+                    <!-- Logout -->
                     <li class="nav-item logout-container">
-                        <button type="button" id="logoutBtn" class="btn btn-logout">
+                        <button
+                            type="button"
+                            id="logoutBtn"
+                            class="btn btn-logout">
                             <i class="bi bi-box-arrow-right"></i>Logout
                         </button>
                     </li>
 
                 </ul>
+
             </div>
 
         </div>
+
     </nav>
 
-    <!-- Elemen target Vue untuk memuat data bahan ajar -->
-    <div id="app" style="display: none;"></div>
+<!-- TRACKING -->
 
-    <!-- HALAMAN TRACKING DELIVERY ORDER -->
-    <main id="tracking-app" class="tracking-container">
+    <main class="tracking-container">
 
-        <!-- Judul utama halaman tracking -->
-        <h2>Tracking Delivery Order</h2>
+        <h2>Tracking Pengiriman</h2>
 
-        <!-- FORM TAMBAH DO: Formulir untuk memasukkan delivery order baru -->
-        <section class="tracking-card">
-            <h3>Tambah Delivery Order</h3>
+        <!-- Form pencarian -->
+        <form id="trackingForm">
 
-            <!-- Formulir menjalankan metode tambahDO saat dikirim -->
-            <form @submit.prevent="tambahDO">
-                <div class="vue-grid">
+            <input
+                type="text"
+                id="inputDO"
+                placeholder="Masukkan Nomor DO"
+                autocomplete="off">
 
-                    <!-- Menampilkan nomor DO yang dibuat secara otomatis -->
-                    <div class="vue-field">
-                        <label>Nomor DO</label>
-                        <input type="text" :value="nomorDOBaru" readonly>
-                    </div>
+            <button
+                type="button"
+                id="findBtn">
+                <i class="bi bi-search"></i>Cari
+            </button>
 
-                    <!-- Input NIM mahasiswa -->
-                    <div class="vue-field">
-                        <label for="nim">NIM</label>
-                        <input id="nim" v-model.trim="form.nim" placeholder="Masukkan NIM">
-                    </div>
+        </form>
 
-                    <!-- Input nama mahasiswa -->
-                    <div class="vue-field">
-                        <label for="nama">Nama</label>
-                        <input id="nama" v-model.trim="form.nama" placeholder="Masukkan nama">
-                    </div>
 
-                    <!-- Pilihan ekspedisi dari daftar yang tersedia -->
-                    <div class="vue-field">
-                        <label for="ekspedisi">Ekspedisi</label>
-                        <select id="ekspedisi" v-model="form.ekspedisi">
-                            <option disabled value="">Pilih ekspedisi</option>
+        <!-- Hasil tracking -->
+        <div id="trackingResult" class="tracking-result">
 
-                            <!-- Menampilkan setiap pilihan ekspedisi menggunakan perulangan Vue -->
-                            <option v-for="item in ekspedisiList" :key="item.kode" :value="item.nama">
-                                {{ item.nama }}
-                            </option>
-                        </select>
-                    </div>
+            <div class="tracking-card">
 
-                    <!-- Pilihan paket bahan ajar yang akan dikirim -->
-                    <div class="vue-field">
-                        <label for="paket">Paket Bahan Ajar</label>
-                        <select id="paket" v-model="form.kodePaket">
-                            <option disabled value="">Pilih paket</option>
-
-                            <!-- Menampilkan kode dan nama paket dari daftar paket -->
-                            <option v-for="item in paketList" :key="item.kode" :value="item.kode">
-                                {{ item.kode }} - {{ item.nama }}
-                            </option>
-                        </select>
-
-                        <!-- Menampilkan isi paket setelah pengguna memilih paket -->
-                        <div v-if="paketDipilih" class="vue-note mt-2">
-                            <strong>Isi Paket:</strong>
-                            <ul class="vue-package-list">
-
-                                <!-- Menampilkan kode dan judul setiap bahan ajar dalam paket -->
-                                <li v-for="kode in paketDipilih.isi" :key="kode">
-                                    {{ kode }} — {{ judulBahan(kode) }}
-                                </li>
-                            </ul>
+                <!-- Header -->
+                <div class="tracking-header">
+                    <div class="tracking-title">
+                        <div class="tracking-title-icon">
+                            <i class="bi bi-box-seam"></i>
                         </div>
+                        <h3>Detail Pengiriman</h3>
                     </div>
 
-                    <!-- Input tanggal pengiriman -->
-                    <div class="vue-field">
-                        <label for="tanggalKirim">Tanggal Kirim</label>
-                        <input id="tanggalKirim" type="date" v-model="form.tanggalKirim">
+                    <span
+                        class="tracking-status"
+                        id="trackingStatus">
+                        -
+                    </span>
+                </div>
 
-                        <!-- Tombol untuk mengisi tanggal hari ini secara otomatis -->
-                        <button class="vue-btn secondary mt-2" type="button" @click="isiTanggalHariIni">
-                            Gunakan Tanggal Hari Ini
-                        </button>
+                <!-- Informasi -->
+                <div class="tracking-info">
+
+                    <!-- Nomor DO -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Nomor DO</span>
+                            <strong id="nomorDO">
+                                -
+                            </strong>
+                        </div>
+
                     </div>
 
-                    <!-- Menampilkan total harga paket dalam format rupiah -->
-                    <div class="vue-field">
-                        <label>Total Harga</label>
-                        <input type="text" :value="formatRupiah(totalHarga)" readonly>
+                    <!-- Nama -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Nama</span>
+                            <strong id="nama">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Ekspedisi -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Ekspedisi</span>
+                            <strong id="ekspedisi">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Tanggal Kirim -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Tanggal Kirim</span>
+                            <strong id="tanggalKirim">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Paket -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Paket</span>
+                            <strong id="paket">
+                                -
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Total -->
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+
+                        <div class="info-text">
+                            <span>Total</span>
+                            <strong id="total">
+                                -
+                            </strong>
+                        </div>
+
                     </div>
 
                 </div>
 
-                <!-- Tombol untuk menambahkan DO atau membersihkan formulir -->
-                <div class="vue-actions">
-                    <button class="vue-btn" type="submit">Tambah DO</button>
-                    <button class="vue-btn secondary" type="button" @click="bersihkanForm">Bersihkan Form</button>
+                <!-- TIMELINE -->
+
+                <div class="timeline-section">
+
+                    <div class="timeline-title">
+
+                        <div class="timeline-title-icon">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+
+                        <h4>Riwayat Perjalanan</h4>
+
+                    </div>
+
+                    <!-- Timeline diisi di JS -->
+                    <div
+                        class="timeline"
+                        id="timeline">
+                    </div>
+
                 </div>
-            </form>
-        </section>
 
-        <!-- DAFTAR DO: Tabel untuk menampilkan delivery order yang tersimpan -->
-        <section class="tracking-card mt-4">
-            <h3>Daftar Delivery Order</h3>
-
-            <!-- Pembungkus tabel agar dapat menyesuaikan tampilan layar -->
-            <div class="vue-table-wrap">
-                <table class="vue-table">
-
-                    <!-- Kepala tabel berisi nama setiap kolom -->
-                    <thead>
-                        <tr>
-                            <th>Nomor DO</th>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Ekspedisi</th>
-                            <th>Paket</th>
-                            <th>Tanggal Kirim</th>
-                            <th>Total Harga</th>
-                        </tr>
-                    </thead>
-
-                    <!-- Isi tabel menampilkan data DO menggunakan perulangan Vue -->
-                    <tbody>
-                        <tr v-for="item in daftarDO" :key="item.nomorDO">
-                            <td>{{ item.nomorDO }}</td>
-                            <td>{{ item.nim }}</td>
-                            <td>{{ item.nama }}</td>
-                            <td>{{ item.ekspedisi }}</td>
-                            <td>{{ item.kodePaket }} - {{ item.namaPaket }}</td>
-                            <td>{{ item.tanggalKirim }}</td>
-                            <td>{{ formatRupiah(item.total) }}</td>
-                        </tr>
-
-                        <!-- Menampilkan pesan jika daftar DO masih kosong -->
-                        <tr v-if="daftarDO.length === 0">
-                            <td colspan="7" class="text-center">
-                                Belum ada data DO.
-                            </td>
-                        </tr>
-                    </tbody>
-
-                </table>
             </div>
-        </section>
+
+        </div>
 
     </main>
 
-    <!-- Memuat JavaScript Bootstrap untuk navbar dan dropdown -->
+
+    <!-- Bootstrap JS (Tombol burger navbar) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Memuat SweetAlert2 untuk notifikasi pop-up -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Data -->
+    <script src="js/data.js"></script>
 
-    <!-- Memuat Vue 2 untuk menjalankan direktif dan fitur reaktif -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-
-    <!-- Memuat data awal bahan ajar -->
-    <script src="js/dataBahanAjar.js"></script>
-
-    <!-- Memuat logika aplikasi tracking delivery order -->
-    <script src="js/tracking-app.js"></script>
-
-    <!-- Memuat script umum, termasuk fungsi yang digunakan bersama -->
+    <!-- JavaScript utama -->
     <script src="js/script.js"></script>
 
 </body>
